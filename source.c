@@ -4,7 +4,7 @@
 #include <string.h>
 
 int sortFile(char * filePath){
-    char symbol = ' ',  **arr = calloc(100,100);
+    char symbol = ' ', arr[100][100];
     FILE *file = fopen(filePath, "r");
     int lines_count = 1;
     while (! feof(file)){
@@ -16,7 +16,8 @@ int sortFile(char * filePath){
     fseek(file, 0, SEEK_SET);
     for (size_t i = 0; i < lines_count;) {
         for (size_t j = 0; (symbol = fgetc(file)) != EOF; j++){
-            string[i] = symbol;
+            printf("%c", symbol);
+            arr[i][j] = symbol;  
             if (symbol == '\n'){ 
                 j = 0; i++;
             }
@@ -24,8 +25,8 @@ int sortFile(char * filePath){
                 i++;
             }
         }
-        printf("%s", string);
     }
+    printf("prj");
     for (size_t i = 0; i < lines_count; i++){
         printf("%s",arr[i]);
     }
