@@ -4,32 +4,30 @@
 #include <string.h>
 
 int sortFile(char * filePath){
-    char symbol = ' ';
+    char symbol = ' ',  **arr = calloc(100,100);
     FILE *file = fopen(filePath, "r");
-    char string[200] = "";
-    char **arr = calloc(10, sizeof(char*)) ;
-    size_t i = 0;
     int lines_count = 1;
     while (! feof(file)){
         if (fgetc(file) == '\n'){
             lines_count++;
         }
     } 
-    printf("%d\n",lines_count);
+    char string[200];
     fseek(file, 0, SEEK_SET);
-    for (; i < lines_count; i++) {
+    for (size_t i = 0; i < lines_count;) {
         for (size_t j = 0; (symbol = fgetc(file)) != EOF; j++){
-            printf("%c",symbol);
-            if (symbol == '\n') {
-                j = 0; 
+            string[i] = symbol;
+            if (symbol == '\n'){ 
+                j = 0; i++;
             }
-            //сука 27 строка бл 
-            //arr[i][j] = symbol;
+            if (i == lines_count - 1){
+                i++;
+            }
         }
+        printf("%s", string);
     }
-    for (size_t j = 0; j < i; j++)
-    {
-        printf("\n%s", arr[j]);
+    for (size_t i = 0; i < lines_count; i++){
+        printf("%s",arr[i]);
     }
     fclose(file);
 }
